@@ -9,6 +9,7 @@ public class FuncoesComuns : MonoBehaviour
 
     public void Desativar()
     {
+        InterfaceControll.instancia.PararAudio();
         gameObject.SetActive(false);
     }
 }

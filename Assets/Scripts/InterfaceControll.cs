@@ -11,6 +11,9 @@ public class InterfaceControll : MonoBehaviour
     [SerializeField] private GameObject menuPause;
     [SerializeField] private GameObject transicao;
     private int id_tela_atual = 0; // 0 -> Menu Principal | 1 -> Menu Opções | 2 -> Carregar Cena
+    [Header("Audios & Configurações")]
+    [SerializeField] private AudioSource btnClick;
+    [SerializeField] private AudioSource somTransicao;
 
     void Awake()
     {
@@ -62,12 +65,18 @@ public class InterfaceControll : MonoBehaviour
     public void Jogar()
     {
         transicao.SetActive(true);
+        somTransicao.Play();
         id_tela_atual = 2;
+    }
+    public void PararAudio()
+    {
+        somTransicao.Stop();
     }
 
     public void Opcoes()
     {
         transicao.SetActive(true);
+        somTransicao.Play();
         if(id_tela_atual == 0) id_tela_atual = 1;
         else id_tela_atual = 0;
     }
@@ -75,5 +84,9 @@ public class InterfaceControll : MonoBehaviour
     public void Sair()
     {
         Debug.Log("Jogo Encerrado!");
+    }
+
+    public void CliqueNoBotao(){
+        btnClick.Play();
     }
 }

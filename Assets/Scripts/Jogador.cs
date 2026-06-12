@@ -5,9 +5,11 @@ public class Jogador : MonoBehaviour
 {
     [SerializeField] private int velocidade;
     [SerializeField] private Rigidbody2D fisica;
+    [SerializeField] private AudioSource somAtaque;
     private Animator animador;
     private Vector2 direcao;
     private Vector2 lastDirecao;
+    private bool atacando = false;
     void Start()
     {
         fisica = GetComponent<Rigidbody2D>();
@@ -35,6 +37,21 @@ public class Jogador : MonoBehaviour
         direcao = contexto.ReadValue<Vector2>();
     }
 
+    public void Atacar(InputAction.CallbackContext contexto)
+    {
+        if (!atacando)
+        {
+            atacando = true;
+            animador.SetTrigger("atacar");
+            somAtaque.Play();
+        }
+    }
+
+    public void FimAtaque()
+    {
+        atacando = false;
+    }
+
     void OnTriggerEnter2D(Collider2D objeto)
     {
         if(objeto.gameObject.tag == "Finish")
@@ -45,6 +62,7 @@ public class Jogador : MonoBehaviour
         if(objeto.gameObject.tag == "orbe")
         {
             Destroy(objeto.gameObject);
+            GameManager.instancia.ColetarOrbe();
         }
     }
 }

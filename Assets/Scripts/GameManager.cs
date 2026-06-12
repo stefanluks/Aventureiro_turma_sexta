@@ -5,7 +5,10 @@ public class GameManager : MonoBehaviour
 {
    public static GameManager instancia {get; private set;}
    [SerializeField] private List<string> fases;
+   [SerializeField] private AudioSource somOrbe;
    private int cenaAtual = 0;
+   private int orbe = 0;
+   
     void Awake()
     {
         if(instancia != null && instancia != this)
@@ -22,5 +25,10 @@ public class GameManager : MonoBehaviour
     {
         cenaAtual++;
         SceneManager.LoadScene(fases[cenaAtual]);
+    }
+    public void ColetarOrbe()
+    {
+        orbe++;
+        somOrbe.Play();
     }
 }
